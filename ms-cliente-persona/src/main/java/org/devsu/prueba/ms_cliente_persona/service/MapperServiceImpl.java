@@ -41,6 +41,7 @@ public class MapperServiceImpl implements Converter<Client, ClientResponse> {
 	
 	public Client mapNewData(Client client, ClientRequest clientRequest) {
 		return Client.builder()
+				.clientId(client.getClientId())
 				.name(Objects.requireNonNullElse(clientRequest.getName(), client.getName()))
 				.gender(Objects.requireNonNullElse(clientRequest.getGender(), client.getGender()))
 				.age(Objects.requireNonNullElse(clientRequest.getAge(), client.getAge()))

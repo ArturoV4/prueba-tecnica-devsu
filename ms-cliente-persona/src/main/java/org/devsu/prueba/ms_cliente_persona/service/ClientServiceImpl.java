@@ -69,7 +69,7 @@ public class ClientServiceImpl implements ClientService {
 		client.setStatus(EnumStatus.FALSE);
 		this.clientRepository.save(client);
 		this.clientProducer.publish(new ClientEvent(client.getClientId(), client.getName(), EnumEvent.DELETED_CLIENT));
-		return new GenericResponse("Client successfully deleted");
+		return new GenericResponse("Client successfully deleted - Logical Delete");
 	}
 
 	private ClientResponse mapToClientResponse(Client client) {
@@ -81,7 +81,7 @@ public class ClientServiceImpl implements ClientService {
 	}
 	
 	private Client mapNewData(Client client, ClientRequest clientRequest) {
-		return this.mapNewData(client, clientRequest);
+		return this.mapperService.mapNewData(client, clientRequest);
 	}
 	
 	private Client findClient(Long clientId) {

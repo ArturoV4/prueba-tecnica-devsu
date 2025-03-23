@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN"  monitorInterval="30" >
+	<Properties>
+		<Property name="log-path">/log</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="clientPersonLogger" fileName="${log-path}/client-person.log" filePattern="${log-path}/client-person-%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} - ID: %X{sid} - Class: %c{1} - Method: %M - Message: %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="1000MB"/>
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${log-path}" maxDepth="1">
+					<IfFileName glob="*client-person*"/>
+					<IfLastModified age="5d"/>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} - ID: %X{sid} - Class: %c{1} - Method: %M - Message: %msg%n"/>
+        </Console>
+	</Appenders>
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="clientPersonLogger"/>
+			 <AppenderRef ref="ConsoleAppender"/>
+		</Root>
+	</Loggers>
+</Configuration>
